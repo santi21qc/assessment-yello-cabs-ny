@@ -11,7 +11,7 @@ def main(event, _):
     _LOGGER.info("Starting process")
 
     getDataset = getDatasetBQ()
-    query_to_execute = """Select * FROm bigquery-public-data.new_york.tlc_yellow_trips_2016 limit 10"""
+    query_to_execute = """SELECT passenger_count, dropoff_longitude, dropoff_latitude, pickup_datetime, dropoff_datetime FROM bigquery-public-data.new_york.tlc_yellow_trips_2016 limit 10"""
 
     df = getDataset.execute_big_query(query_to_execute)
 
