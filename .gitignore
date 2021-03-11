@@ -43,9 +43,7 @@ Generated\ Files/
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
 
-.venv
-.vscode
-.site-packages
+./*
 
 # NUnit
 *.VisualState.xml
