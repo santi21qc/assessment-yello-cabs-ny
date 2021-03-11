@@ -1,12 +1,20 @@
 import os
 import pandas as pd
 import exceptions
+from response_handler import responseHandler
 from logger_handler import get_logger
 from bigquery_handler import getDatasetBQ
 from math import radians, cos, sin, asin, sqrt
 
 
 _LOGGER = get_logger(os.path.realpath(__file__))
+_MASTER_DICT = {
+    "passenger_count": "passengerCount",
+    "total_time_minutes": "totalTimeMinutes",
+    "number_trips": "numberOfTrips",
+    "number_cabs_required": "numberOfCabsRequired"
+}
+
 
 def haversine(lon1, lat1, lon2, lat2):
     """
@@ -60,10 +68,19 @@ def main(event, _):
     # Put in new column minutes of trip
     df_final['total_time_minutes'] = (df_final.dropoff_datetime - df_final.pickup_datetime).astype('timedelta64[m]').astype(int)
     
-    # Response
-    df_groupby = df_final.groupby(["passenger_count"]).agg({'total_time_minutes': 'sum', 'radius_km': 'count', 'vendor_id': 'nunique'}).rename(columns={'total_time_minutes':'totalTimeMinutes', 'radius_km':'numberOfTrips', 'vendor_id': 'numberOfCabsRequired'})
-    
-    print(df_groupby)
+    # Build response
+    df_groupby = df_final.groupby(["passenger_count"]).agg({'total_time_minutes': 'sum', 'radius_km': 'count', 'vendor_id': 'nunique'}).rename(columns={'total_time_minutes':'total_time_minutes', 'radius_km':'number_trips', 'vendor_id': 'number_cabs_required'})
+    df_groupby = df_groupby.reset_index()
+
+    response_handler = responseHandler(_MASTER_DICT)
+
+    try:
+        body_response = response_handler.build_body(df_groupby)
+    except:
+        _LOGGER.error("Something went wrong parsing response")
+    else:
+        return body_response
 
 if __name__ == "__main__":
-    main("event", None)
+    response = main("event", None)
+    print(response)
