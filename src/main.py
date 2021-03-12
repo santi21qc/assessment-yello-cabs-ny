@@ -79,8 +79,8 @@ def main(event):
     except:
         _LOGGER.error("Something went wrong parsing response")
     else:
-        return {body_response[i]: body_response[i + 1] for i in range(0, len(body_response), 2)}
+        return str(body_response)
 
 if __name__ == "__main__":
     response = main("event")
-    print(type(response))
+    print(response)
