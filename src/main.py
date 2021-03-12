@@ -33,7 +33,7 @@ def haversine(lon1, lat1, lon2, lat2):
     return c * r
 
 
-def main(event, _):
+def main():
     _LOGGER.info("Starting process")
 
     getDataset = getDatasetBQ()
