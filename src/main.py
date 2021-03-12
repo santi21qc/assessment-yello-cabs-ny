@@ -73,7 +73,6 @@ def main(event):
     df_groupby = df_groupby.reset_index()
 
     response_handler = responseHandler(_MASTER_DICT)
-
     try:
         body_response = response_handler.build_body(df_groupby)
     except:
