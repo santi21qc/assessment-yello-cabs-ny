@@ -44,6 +44,7 @@ class getDatasetBQ:
             _LOGGER.error(str(e))
             raise Exception(e)
         else:
+            _LOGGER.info("Query executed successfully")
             results = query.result()
             return results.to_dataframe()
 
