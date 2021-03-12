@@ -37,6 +37,7 @@ class getDatasetBQ:
         """
 
         try:
+            _LOGGER.info(f"Executing query {sql_query}")
             query = self.client.query(sql_query)
         except Exception as e:
             _LOGGER.error(f"Error executing SQL {sql_query}")
