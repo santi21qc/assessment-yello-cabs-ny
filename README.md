@@ -26,6 +26,8 @@
 
 # Test using command terminal
 - **Command:** gcloud functions call assessment_ny_cabs
+- **Data**: 500k records
+
 ![command-example](https://github.com/santi21qc/assessment-yello-cabs-ny/blob/develop/images/terminal-example.gif)
 - **output:** 
 ```
@@ -72,6 +74,7 @@
 
 # Test in Google Cloud Function
 - **Function name:** assessment_ny_cabs
+- **Data**: 500k records
 
 ![command-example](https://github.com/santi21qc/assessment-yello-cabs-ny/blob/develop/images/function_test-example.gif)
 
