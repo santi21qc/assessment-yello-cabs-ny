@@ -23,3 +23,6 @@
 ├── test_requirements.txt
 └── README.md
 ```
+
+# Test using command terminal
+- **Command:** gcloud functions call assessment_ny_cabs
